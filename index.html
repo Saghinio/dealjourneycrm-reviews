@@ -7,81 +7,49 @@
 <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,300&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #faf9f7;
-    --surface: #ffffff;
-    --surface2: #f4f2ef;
-    --border: #e8e4de;
-    --border-focus: #9124EB;
-    --purple-1: #9124EB;
-    --purple-2: #C024E8;
-    --purple-3: #C634F7;
-    --mint: #3FB896;
-    --text: #1a1625;
-    --text-mid: #5a5267;
-    --text-dim: #9b94a8;
+    --bg: #faf9f7; --surface: #ffffff; --surface2: #f4f2ef;
+    --border: #e8e4de; --border-focus: #9124EB;
+    --purple-1: #9124EB; --purple-2: #C024E8; --purple-3: #C634F7;
+    --mint: #3FB896; --text: #1a1625; --text-mid: #5a5267; --text-dim: #9b94a8;
     --input-bg: #fdfcfb;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { background: var(--bg); font-family: 'Roboto', sans-serif; color: var(--text); min-height: 100vh; }
-  body::before {
-    content: '';
-    position: fixed; inset: 0;
-    background-image: radial-gradient(circle at 15% 20%, rgba(145,36,235,0.04) 0%, transparent 45%), radial-gradient(circle at 85% 80%, rgba(63,184,150,0.05) 0%, transparent 45%);
-    pointer-events: none; z-index: 0;
-  }
-  .page-wrap { position: relative; z-index: 1; max-width: 680px; margin: 0 auto; padding: 60px 24px 100px; }
-
+  body::before { content: ''; position: fixed; inset: 0; background-image: radial-gradient(circle at 15% 20%, rgba(145,36,235,0.04) 0%, transparent 45%), radial-gradient(circle at 85% 80%, rgba(63,184,150,0.05) 0%, transparent 45%); pointer-events: none; z-index: 0; }
+  .page-wrap { position: relative; z-index: 1; max-width: 680px; margin: 0 auto; padding: 40px 24px 100px; }
+  .lang-bar { display: flex; justify-content: flex-end; margin-bottom: 32px; gap: 4px; }
+  .lang-btn { display: flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 8px; border: 1.5px solid var(--border); background: none; font-family: 'Roboto', sans-serif; font-size: 12px; font-weight: 400; color: var(--text-mid); cursor: pointer; transition: all 0.2s; }
+  .lang-btn:hover { border-color: var(--purple-1); color: var(--text); }
+  .lang-btn.active { border-color: var(--purple-1); background: rgba(145,36,235,0.06); color: var(--purple-1); font-weight: 500; }
+  .lang-flag { font-size: 14px; line-height: 1; }
   .header { text-align: center; margin-bottom: 52px; animation: fadeUp 0.5s ease both; }
   .logo-mark { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 32px; }
-  .logo-symbol {
-    width: 40px; height: 40px;
-    background: linear-gradient(135deg, var(--purple-1), var(--purple-3));
-    border-radius: 10px; display: flex; align-items: center; justify-content: center;
-    font-family: 'Quicksand', sans-serif; font-weight: 700; font-size: 22px; color: white;
-  }
+  .logo-symbol { width: 40px; height: 40px; background: linear-gradient(135deg, var(--purple-1), var(--purple-3)); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-family: 'Quicksand', sans-serif; font-weight: 700; font-size: 22px; color: white; }
   .logo-wordmark { font-family: 'Quicksand', sans-serif; font-weight: 700; font-size: 18px; color: var(--text); }
   .logo-wordmark span { background: linear-gradient(90deg, var(--purple-1), var(--purple-2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
   .header-eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mint); margin-bottom: 14px; }
   .header-title { font-family: 'Roboto', sans-serif; font-size: 34px; font-weight: 300; line-height: 1.2; color: var(--text); margin-bottom: 18px; letter-spacing: -0.02em; }
   .header-title em { font-style: italic; color: var(--purple-1); }
   .header-desc { font-size: 15px; line-height: 1.75; color: var(--text-mid); font-weight: 300; max-width: 480px; margin: 0 auto; }
-
   .card { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 40px 44px; box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 8px 32px rgba(145,36,235,0.06); margin-bottom: 20px; animation: fadeUp 0.5s ease both; }
   .card-label { font-size: 10.5px; font-weight: 600; letter-spacing: 0.11em; text-transform: uppercase; color: var(--purple-1); margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
   .card-label::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, var(--border), transparent); }
-
   .field { margin-bottom: 22px; }
   .field:last-child { margin-bottom: 0; }
   label { display: block; font-size: 13px; font-weight: 500; color: var(--text-mid); margin-bottom: 8px; }
   label .req { color: var(--purple-2); margin-left: 2px; }
   label .hint { font-weight: 300; color: var(--text-dim); font-size: 12px; margin-left: 4px; }
-
-  input[type="text"], input[type="url"], textarea {
-    width: 100%; background: var(--input-bg); border: 1.5px solid var(--border); border-radius: 10px;
-    padding: 13px 16px; font-family: 'Roboto', sans-serif; font-size: 14px; font-weight: 300; color: var(--text);
-    outline: none; transition: border-color 0.2s, box-shadow 0.2s; resize: none;
-  }
+  input[type="text"], input[type="url"], textarea { width: 100%; background: var(--input-bg); border: 1.5px solid var(--border); border-radius: 10px; padding: 13px 16px; font-family: 'Roboto', sans-serif; font-size: 14px; font-weight: 300; color: var(--text); outline: none; transition: border-color 0.2s, box-shadow 0.2s; resize: none; }
   input::placeholder, textarea::placeholder { color: var(--text-dim); font-weight: 300; }
   input:focus, textarea:focus { border-color: var(--border-focus); box-shadow: 0 0 0 3px rgba(145,36,235,0.08); }
   textarea { min-height: 110px; }
-
   .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-
   .toggle-group { display: flex; gap: 10px; margin-bottom: 20px; }
-  .toggle-btn {
-    flex: 1; padding: 11px 16px; border-radius: 10px; border: 1.5px solid var(--border);
-    background: var(--input-bg); font-family: 'Roboto', sans-serif; font-size: 13px; font-weight: 400;
-    color: var(--text-mid); cursor: pointer; transition: all 0.2s; text-align: center;
-  }
+  .toggle-btn { flex: 1; padding: 11px 16px; border-radius: 10px; border: 1.5px solid var(--border); background: var(--input-bg); font-family: 'Roboto', sans-serif; font-size: 13px; font-weight: 400; color: var(--text-mid); cursor: pointer; transition: all 0.2s; text-align: center; }
   .toggle-btn.active { border-color: var(--purple-1); background: rgba(145,36,235,0.06); color: var(--purple-1); font-weight: 500; }
-
   .question-panel { display: none; }
   .question-panel.visible { display: block; }
-
-  .drop-zone {
-    border: 1.5px dashed var(--border); border-radius: 12px; padding: 28px 20px;
-    text-align: center; cursor: pointer; transition: all 0.2s; position: relative; background: var(--input-bg);
-  }
+  .drop-zone { border: 1.5px dashed var(--border); border-radius: 12px; padding: 28px 20px; text-align: center; cursor: pointer; transition: all 0.2s; position: relative; background: var(--input-bg); }
   .drop-zone:hover, .drop-zone.dragover { border-color: var(--purple-1); background: rgba(145,36,235,0.04); }
   .drop-zone input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
   .drop-icon { width: 36px; height: 36px; background: var(--surface2); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; }
@@ -92,300 +60,221 @@
   .drop-preview { display: none; align-items: center; gap: 10px; padding: 10px 14px; background: rgba(63,184,150,0.08); border-radius: 8px; margin-top: 12px; font-size: 12.5px; color: var(--mint); font-weight: 500; }
   .drop-preview.visible { display: flex; }
   .drop-preview svg { width: 14px; height: 14px; stroke: var(--mint); stroke-width: 2; fill: none; flex-shrink: 0; }
-
-  .bw-card {
-    background: linear-gradient(135deg, #f9f7ff 0%, #f4f8ff 100%);
-    border: 1px solid rgba(145,36,235,0.15); border-radius: 16px; padding: 28px 32px;
-    display: flex; align-items: center; gap: 20px; animation: fadeUp 0.5s 0.2s ease both; opacity: 0; animation-fill-mode: both;
-  }
+  .bw-card { background: linear-gradient(135deg, #f9f7ff 0%, #f4f8ff 100%); border: 1px solid rgba(145,36,235,0.15); border-radius: 16px; padding: 28px 32px; display: flex; align-items: center; gap: 20px; animation: fadeUp 0.5s 0.2s ease both; opacity: 0; animation-fill-mode: both; }
   .bw-icon { width: 48px; height: 48px; background: linear-gradient(135deg, var(--purple-1), var(--purple-2)); border-radius: 13px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
   .bw-icon svg { width: 22px; height: 22px; fill: white; }
   .bw-text { flex: 1; }
   .bw-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
   .bw-desc { font-size: 12.5px; font-weight: 300; color: var(--text-mid); line-height: 1.5; }
-  .bw-btn {
-    display: inline-flex; align-items: center; gap: 6px;
-    background: linear-gradient(135deg, var(--purple-1), var(--purple-2)); color: white;
-    font-family: 'Roboto', sans-serif; font-size: 13px; font-weight: 500;
-    padding: 10px 20px; border-radius: 9px; text-decoration: none; flex-shrink: 0; transition: opacity 0.2s, transform 0.2s;
-  }
+  .bw-btn { display: inline-flex; align-items: center; gap: 6px; background: linear-gradient(135deg, var(--purple-1), var(--purple-2)); color: white; font-family: 'Roboto', sans-serif; font-size: 13px; font-weight: 500; padding: 10px 20px; border-radius: 9px; text-decoration: none; flex-shrink: 0; transition: opacity 0.2s, transform 0.2s; }
   .bw-btn:hover { opacity: 0.9; transform: translateY(-1px); }
   .bw-btn svg { width: 13px; height: 13px; stroke: white; stroke-width: 2; fill: none; }
-
   .prize-banner { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--mint); border-radius: 12px; padding: 18px 24px; display: flex; gap: 14px; align-items: flex-start; margin-top: 20px; animation: fadeUp 0.5s 0.25s ease both; opacity: 0; animation-fill-mode: both; }
   .prize-icon { font-size: 20px; line-height: 1; flex-shrink: 0; margin-top: 1px; }
   .prize-text { font-size: 13.5px; line-height: 1.65; color: var(--text-mid); font-weight: 300; }
   .prize-text strong { color: var(--text); font-weight: 600; }
-
   .submit-area { margin-top: 32px; animation: fadeUp 0.5s 0.3s ease both; opacity: 0; animation-fill-mode: both; }
-  .submit-btn {
-    width: 100%; padding: 16px 28px;
-    background: linear-gradient(135deg, var(--purple-1) 0%, var(--purple-2) 100%);
-    color: white; border: none; border-radius: 12px; font-family: 'Roboto', sans-serif;
-    font-size: 15px; font-weight: 500; cursor: pointer; transition: all 0.25s;
-  }
+  .submit-btn { width: 100%; padding: 16px 28px; background: linear-gradient(135deg, var(--purple-1) 0%, var(--purple-2) 100%); color: white; border: none; border-radius: 12px; font-family: 'Roboto', sans-serif; font-size: 15px; font-weight: 500; cursor: pointer; transition: all 0.25s; }
   .submit-btn:hover { opacity: 0.9; transform: translateY(-1px); }
   .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
   .submit-note { text-align: center; font-size: 12px; color: var(--text-dim); font-weight: 300; margin-top: 12px; }
-
   .error-msg { background: rgba(231,76,60,0.08); border: 1px solid rgba(231,76,60,0.2); border-radius: 8px; padding: 12px 16px; font-size: 13px; color: #c0392b; margin-top: 12px; display: none; }
   .error-msg.visible { display: block; }
-
   .thank-you { display: none; text-align: center; padding: 60px 40px; }
   .thank-you.visible { display: block; animation: fadeUp 0.4s ease both; }
   .thank-you-icon { width: 64px; height: 64px; background: linear-gradient(135deg, var(--mint), #2aab82); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; }
   .thank-you-icon svg { width: 28px; height: 28px; stroke: white; stroke-width: 2.5; fill: none; }
   .thank-you h2 { font-family: 'Roboto', sans-serif; font-size: 28px; font-weight: 300; margin-bottom: 12px; color: var(--text); }
   .thank-you p { font-size: 14.5px; color: var(--text-mid); font-weight: 300; line-height: 1.7; }
-
   .footer-tagline { text-align: center; margin-top: 48px; font-family: 'Roboto', sans-serif; font-size: 17px; font-weight: 300; font-style: italic; color: var(--text-dim); animation: fadeUp 0.5s 0.4s ease both; opacity: 0; animation-fill-mode: both; }
-
   @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
   @media (max-width: 520px) { .card { padding: 28px 24px; } .header-title { font-size: 26px; } .two-col { grid-template-columns: 1fr; } .bw-card { flex-direction: column; } }
 </style>
 </head>
 <body>
 <div class="page-wrap">
-
+  <div class="lang-bar">
+    <button class="lang-btn active" onclick="setLang('no')"><span class="lang-flag">&#127475;&#127476;</span> Norsk</button>
+    <button class="lang-btn" onclick="setLang('sv')"><span class="lang-flag">&#127480;&#127466;</span> Svenska</button>
+    <button class="lang-btn" onclick="setLang('da')"><span class="lang-flag">&#127465;&#127472;</span> Dansk</button>
+    <button class="lang-btn" onclick="setLang('en')"><span class="lang-flag">&#127468;&#127463;</span> English</button>
+  </div>
   <div class="header">
     <div class="logo-mark">
-      <div class="logo-symbol">∞</div>
-      <div class="logo-wordmark">Deal<span>J∞urney</span></div>
+      <div class="logo-symbol">&#8734;</div>
+      <div class="logo-wordmark">Deal<span>J&#8734;urney</span></div>
     </div>
-    <div class="header-eyebrow">Kundeuttalelse</div>
-    <h1 class="header-title">Takk for at du deler<br><em>din erfaring</em></h1>
-    <p class="header-desc">Vi setter enormt stor pris på at du vil gi oss en uttalelse som vi kan bruke på nettsiden vår og i sosiale medier. Fyll inn skjemaet under, så tar vi det derfra. På forhånd tusen takk.</p>
+    <div class="header-eyebrow" data-i18n="eyebrow"></div>
+    <h1 class="header-title" data-i18n="title"></h1>
+    <p class="header-desc" data-i18n="desc"></p>
   </div>
-
   <div id="formContent">
-
     <div class="card" style="animation-delay:0.05s">
-      <div class="card-label">Om deg</div>
+      <div class="card-label" data-i18n="section_about"></div>
       <div class="two-col">
         <div class="field">
-          <label>Navn <span class="req">*</span></label>
-          <input type="text" id="navn" placeholder="Ola Nordmann">
+          <label><span data-i18n="label_name"></span> <span class="req">*</span></label>
+          <input type="text" id="navn" data-i18n-ph="placeholder_name">
         </div>
         <div class="field">
-          <label>Rolle <span class="hint">/ tittel</span></label>
-          <input type="text" id="rolle" placeholder="Daglig leder">
+          <label><span data-i18n="label_role"></span> <span class="hint" data-i18n="label_role_hint"></span></label>
+          <input type="text" id="rolle" data-i18n-ph="placeholder_role">
         </div>
       </div>
       <div class="field">
-        <label>Bedriftens nettside</label>
-        <input type="url" id="nettside" placeholder="https://din-bedrift.no">
+        <label data-i18n="label_website"></label>
+        <input type="url" id="nettside" placeholder="https://yourcompany.com">
       </div>
       <div class="field">
-        <label>LinkedIn-profil</label>
-        <input type="url" id="linkedin" placeholder="https://linkedin.com/in/ditt-navn">
+        <label data-i18n="label_linkedin"></label>
+        <input type="url" id="linkedin" placeholder="https://linkedin.com/in/your-name">
       </div>
     </div>
-
     <div class="card" style="animation-delay:0.10s">
-      <div class="card-label">Din uttalelse</div>
+      <div class="card-label" data-i18n="section_review"></div>
       <div class="field">
-        <label>Er du ny eller eksisterende kunde?</label>
+        <label data-i18n="label_customer_type"></label>
         <div class="toggle-group">
-          <button class="toggle-btn active" id="btnNew" onclick="switchType('new')">Ny kunde</button>
-          <button class="toggle-btn" id="btnExisting" onclick="switchType('existing')">Eksisterende kunde</button>
+          <button class="toggle-btn active" id="btnNew" onclick="switchType('new')" data-i18n="btn_new"></button>
+          <button class="toggle-btn" id="btnExisting" onclick="switchType('existing')" data-i18n="btn_existing"></button>
         </div>
       </div>
       <div class="question-panel visible" id="panelNew">
         <div class="field">
-          <label>Hvorfor valgte dere DealJourney? <span class="req">*</span></label>
-          <textarea id="newQuestion" placeholder="Fortell oss hva som avgjorde valget. Hva var dere ute etter, og hva overbevisste dere?"></textarea>
+          <label><span data-i18n="label_why_dj"></span> <span class="req">*</span></label>
+          <textarea id="newQuestion" data-i18n-ph="placeholder_why_dj"></textarea>
         </div>
       </div>
       <div class="question-panel" id="panelExisting">
         <div class="field">
-          <label>Hva liker du med DealJourney? <span class="req">*</span></label>
-          <textarea id="existingQuestion" placeholder="Del gjerne konkrete ting du har opplevd. Hva har gjort en forskjell for deg?"></textarea>
+          <label><span data-i18n="label_what_like"></span> <span class="req">*</span></label>
+          <textarea id="existingQuestion" data-i18n-ph="placeholder_what_like"></textarea>
         </div>
       </div>
       <div class="field">
-        <label>Kort om bedriften din <span class="hint">— valgfritt</span></label>
-        <textarea id="bedriftBeskrivelse" placeholder="Noen linjer om hva bedriften gjør, hvem dere er, og hva dere driver med."></textarea>
+        <label><span data-i18n="label_company_desc"></span> <span class="hint" data-i18n="optional"></span></label>
+        <textarea id="bedriftBeskrivelse" data-i18n-ph="placeholder_company_desc"></textarea>
       </div>
     </div>
-
     <div class="card" style="animation-delay:0.15s">
-      <div class="card-label">Logo og bilde</div>
+      <div class="card-label" data-i18n="section_files"></div>
       <div class="field">
-        <label>Last opp bedriftens logo</label>
-        <div class="drop-zone" id="logoZone">
-          <input type="file" id="logoFile" accept="image/*,.svg,.eps" onchange="handleFileSelect(this, 'logoPrev', 'logoName')">
+        <label data-i18n="label_logo"></label>
+        <div class="drop-zone">
+          <input type="file" id="logoFile" accept="image/*,.svg,.eps" onchange="handleFileSelect(this,'logoPrev','logoName')">
           <div class="drop-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 9l5-5 4 4 4-4 5 5"/><circle cx="8.5" cy="6.5" r="1.5"/></svg></div>
-          <div class="drop-label">Slipp filen her, eller klikk for å velge</div>
-          <div class="drop-sublabel">PNG, JPG eller SVG. Helst høy oppløsning.</div>
+          <div class="drop-label" data-i18n="drop_label"></div>
+          <div class="drop-sublabel" data-i18n="drop_sub_logo"></div>
         </div>
         <div class="drop-preview" id="logoPrev"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span id="logoName"></span></div>
       </div>
       <div class="field">
-        <label>Bilde av deg <span class="hint">— valgfritt</span></label>
-        <div class="drop-zone" id="photoZone">
-          <input type="file" id="photoFile" accept="image/*" onchange="handleFileSelect(this, 'photoPrev', 'photoName')">
+        <label><span data-i18n="label_photo"></span> <span class="hint" data-i18n="optional"></span></label>
+        <div class="drop-zone">
+          <input type="file" id="photoFile" accept="image/*" onchange="handleFileSelect(this,'photoPrev','photoName')">
           <div class="drop-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg></div>
-          <div class="drop-label">Slipp bildet her, eller klikk for å velge</div>
-          <div class="drop-sublabel">Gjerne et profilbilde i god kvalitet</div>
+          <div class="drop-label" data-i18n="drop_label"></div>
+          <div class="drop-sublabel" data-i18n="drop_sub_photo"></div>
         </div>
         <div class="drop-preview" id="photoPrev"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span id="photoName"></span></div>
       </div>
     </div>
-
     <div class="bw-card">
       <div class="bw-icon"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
       <div class="bw-text">
-        <div class="bw-title">Gi oss en anmeldelse på BusinessWith</div>
-        <div class="bw-desc">Det tar bare 2 minutter og betyr enormt mye for oss.</div>
+        <div class="bw-title" data-i18n="bw_title"></div>
+        <div class="bw-desc" data-i18n="bw_desc"></div>
       </div>
-      <a href="https://businesswith.no/system/dealjourneycrm/write-review/" target="_blank" rel="noopener" class="bw-btn">
-        Skriv anmeldelse
+      <a id="bwLink" href="https://businesswith.no/system/dealjourneycrm/write-review/" target="_blank" rel="noopener" class="bw-btn">
+        <span data-i18n="bw_btn"></span>
         <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
       </a>
     </div>
-
     <div class="prize-banner">
-      <div class="prize-icon">🎁</div>
-      <div class="prize-text"><strong>Alle som bidrar er med i trekningen.</strong> Vi trekker kreditter og moduler inne i systemet blant alle som sender inn. Du kan bli overrasket. Sammen blir vi sterke. 💜</div>
+      <div class="prize-icon">&#127873;</div>
+      <div class="prize-text" data-i18n="prize_text"></div>
     </div>
-
     <div class="submit-area">
       <div class="error-msg" id="errorMsg"></div>
-      <button class="submit-btn" id="submitBtn" onclick="submitForm()">Send inn uttalelse</button>
-      <div class="submit-note">Vi behandler informasjonen din med respekt og bruker den kun til det formålet du har godkjent.</div>
+      <button class="submit-btn" id="submitBtn" onclick="submitForm()" data-i18n="btn_submit"></button>
+      <div class="submit-note" data-i18n="submit_note"></div>
     </div>
-
   </div>
-
   <div class="card thank-you" id="thankYou">
     <div class="thank-you-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
-    <h2>Tusen takk!</h2>
-    <p>Vi har mottatt uttalelsen din og setter enormt stor pris på at du tok deg tid. Vi kommer tilbake til deg så snart vi har brukt det.<br><br>Husk trekningen av systemkreditter og moduler. Du hører fra oss. 💜</p>
+    <h2 data-i18n="thanks_title"></h2>
+    <p data-i18n="thanks_body"></p>
   </div>
-
-  <div class="footer-tagline">Sammen blir vi sterke.</div>
+  <div class="footer-tagline" data-i18n="tagline"></div>
 </div>
-
 <script>
-  const SUPABASE_URL = 'https://nxzkyesnjvgcvwyokwdm.supabase.co';
-  const SUPABASE_KEY = 'sb_publishable_0LReF4E4CkYETFQGHyBoxg__Fv944jP';
-
-  function switchType(type) {
-    document.getElementById('btnNew').classList.toggle('active', type === 'new');
-    document.getElementById('btnExisting').classList.toggle('active', type === 'existing');
-    document.getElementById('panelNew').classList.toggle('visible', type === 'new');
-    document.getElementById('panelExisting').classList.toggle('visible', type === 'existing');
-  }
-
-  function handleFileSelect(input, prevId, nameId) {
-    if (input.files && input.files[0]) {
-      document.getElementById(nameId).textContent = input.files[0].name;
-      document.getElementById(prevId).classList.add('visible');
-    }
-  }
-
-  document.querySelectorAll('.drop-zone').forEach(zone => {
-    zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('dragover'); });
-    zone.addEventListener('dragleave', () => zone.classList.remove('dragover'));
-    zone.addEventListener('drop', e => {
-      e.preventDefault(); zone.classList.remove('dragover');
-      const input = zone.querySelector('input[type="file"]');
-      if (e.dataTransfer.files.length) {
-        const dt = new DataTransfer();
-        dt.items.add(e.dataTransfer.files[0]);
-        input.files = dt.files;
-        input.dispatchEvent(new Event('change'));
-      }
-    });
-  });
-
-  async function uploadFile(file, bucket) {
-    const ext = file.name.split('.').pop();
-    const filename = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
-    const res = await fetch(`${SUPABASE_URL}/storage/v1/object/${bucket}/${filename}`, {
-      method: 'POST',
-      headers: { 'Authorization': `Bearer ${SUPABASE_KEY}`, 'Content-Type': file.type },
-      body: file
-    });
-    if (!res.ok) return null;
-    return `${SUPABASE_URL}/storage/v1/object/public/${bucket}/${filename}`;
-  }
-
-  async function submitForm() {
-    const navn = document.getElementById('navn').value.trim();
-    const isNew = document.getElementById('panelNew').classList.contains('visible');
-    const uttalelse = isNew
-      ? document.getElementById('newQuestion').value.trim()
-      : document.getElementById('existingQuestion').value.trim();
-
-    const errorEl = document.getElementById('errorMsg');
-    errorEl.classList.remove('visible');
-
-    if (!navn) { showError('Vennligst fyll inn navn.'); document.getElementById('navn').focus(); return; }
-    if (!uttalelse) { showError('Vennligst skriv en uttalelse.'); return; }
-
-    const btn = document.getElementById('submitBtn');
-    btn.disabled = true;
-    btn.textContent = 'Sender inn...';
-
-    try {
-      // Upload files if present
-      let logo_url = null, bilde_url = null;
-      const logoFile = document.getElementById('logoFile').files[0];
-      const photoFile = document.getElementById('photoFile').files[0];
-      if (logoFile) logo_url = await uploadFile(logoFile, 'uttalelser-logoer');
-      if (photoFile) bilde_url = await uploadFile(photoFile, 'uttalelser-bilder');
-
-      const payload = {
-        navn,
-        rolle: document.getElementById('rolle').value.trim() || null,
-        er_ny_kunde: isNew,
-        uttalelse,
-        bedrift_beskrivelse: document.getElementById('bedriftBeskrivelse').value.trim() || null,
-        nettside: document.getElementById('nettside').value.trim() || null,
-        linkedin: document.getElementById('linkedin').value.trim() || null,
-        logo_url,
-        bilde_url,
-        status: 'ny'
-      };
-
-      const res = await fetch(`${SUPABASE_URL}/rest/v1/uttalelser`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'apikey': SUPABASE_KEY,
-          'Authorization': `Bearer ${SUPABASE_KEY}`,
-          'Prefer': 'return=minimal'
-        },
-        body: JSON.stringify(payload)
-      });
-
-      if (!res.ok) {
-        const err = await res.json();
-        throw new Error(err.message || 'Noe gikk galt');
-      }
-
-      document.getElementById('formContent').style.transition = 'opacity 0.3s';
-      document.getElementById('formContent').style.opacity = '0';
-      setTimeout(() => {
-        document.getElementById('formContent').style.display = 'none';
-        document.getElementById('thankYou').classList.add('visible');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }, 300);
-
-    } catch (err) {
-      showError('Noe gikk galt: ' + err.message);
-      btn.disabled = false;
-      btn.textContent = 'Send inn uttalelse';
-    }
-  }
-
-  function showError(msg) {
-    const el = document.getElementById('errorMsg');
-    el.textContent = msg;
-    el.classList.add('visible');
-    el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-  }
+const SUPABASE_URL = 'https://nxzkyesnjvgcvwyokwdm.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_0LReF4E4CkYETFQGHyBoxg__Fv944jP';
+const i18n = {
+  no: { eyebrow:'Kundeuttalelse', title:'Takk for at du deler<br><em>din erfaring</em>', desc:'Vi setter enormt stor pris på at du vil gi oss en uttalelse som vi kan bruke på nettsiden vår og i sosiale medier. Fyll inn skjemaet under, så tar vi det derfra. På forhånd tusen takk.', section_about:'Om deg', section_review:'Din uttalelse', section_files:'Logo og bilde', label_name:'Navn', placeholder_name:'Ola Nordmann', label_role:'Rolle', label_role_hint:'/ tittel', placeholder_role:'Daglig leder', label_website:'Bedriftens nettside', label_linkedin:'LinkedIn-profil', label_customer_type:'Er du ny eller eksisterende kunde?', btn_new:'Ny kunde', btn_existing:'Eksisterende kunde', label_why_dj:'Hvorfor valgte dere DealJourney?', placeholder_why_dj:'Fortell oss hva som avgjorde valget. Hva var dere ute etter, og hva overbevisste dere?', label_what_like:'Hva liker du med DealJourney?', placeholder_what_like:'Del gjerne konkrete ting du har opplevd. Hva har gjort en forskjell for deg?', label_company_desc:'Kort om bedriften din', placeholder_company_desc:'Noen linjer om hva bedriften gjør, hvem dere er, og hva dere driver med.', optional:'— valgfritt', label_logo:'Last opp bedriftens logo', label_photo:'Bilde av deg', drop_label:'Slipp filen her, eller klikk for å velge', drop_sub_logo:'PNG, JPG eller SVG. Helst høy oppløsning.', drop_sub_photo:'Gjerne et profilbilde i god kvalitet', bw_title:'Gi oss en anmeldelse på BusinessWith', bw_desc:'Det tar bare 2 minutter og betyr enormt mye for oss.', bw_url:'https://businesswith.no/system/dealjourneycrm/write-review/', bw_btn:'Skriv anmeldelse', prize_text:'<strong>Alle som bidrar er med i trekningen.</strong> Vi trekker kreditter og moduler inne i systemet blant alle som sender inn. Du kan bli overrasket. Sammen blir vi sterke. 💜', btn_submit:'Send inn uttalelse', submit_note:'Vi behandler informasjonen din med respekt og bruker den kun til det formålet du har godkjent.', thanks_title:'Tusen takk!', thanks_body:'Vi har mottatt uttalelsen din og setter enormt stor pris på at du tok deg tid. Vi kommer tilbake til deg så snart vi har brukt det.<br><br>Husk trekningen av systemkreditter og moduler. Du hører fra oss. 💜', tagline:'Sammen blir vi sterke.', err_name:'Vennligst fyll inn navn.', err_review:'Vennligst skriv en uttalelse.', err_generic:'Noe gikk galt: ' },
+  sv: { eyebrow:'Kundrecension', title:'Tack för att du delar<br><em>din erfarenhet</em>', desc:'Vi uppskattar enormt att du vill ge oss ett omdöme som vi kan använda på vår webbplats och i sociala medier. Fyll i formuläret nedan så tar vi det därifrån. Tack på förhand.', section_about:'Om dig', section_review:'Ditt omdöme', section_files:'Logotyp och bild', label_name:'Namn', placeholder_name:'Anna Svensson', label_role:'Roll', label_role_hint:'/ titel', placeholder_role:'VD', label_website:'Företagets webbplats', label_linkedin:'LinkedIn-profil', label_customer_type:'Är du ny eller befintlig kund?', btn_new:'Ny kund', btn_existing:'Befintlig kund', label_why_dj:'Varför valde ni DealJourney?', placeholder_why_dj:'Berätta vad som avgjorde valet. Vad letade ni efter, och vad övertygade er?', label_what_like:'Vad gillar du med DealJourney?', placeholder_what_like:'Dela gärna konkreta saker du upplevt. Vad har gjort skillnad för dig?', label_company_desc:'Kort om ditt företag', placeholder_company_desc:'Några rader om vad företaget gör, vilka ni är och vad ni arbetar med.', optional:'— valfritt', label_logo:'Ladda upp företagets logotyp', label_photo:'Bild på dig', drop_label:'Släpp filen här, eller klicka för att välja', drop_sub_logo:'PNG, JPG eller SVG. Helst hög upplösning.', drop_sub_photo:'Gärna ett profilfoto i god kvalitet', bw_title:'Ge oss ett omdöme på BusinessWith', bw_desc:'Det tar bara 2 minuter och betyder enormt mycket för oss.', bw_url:'https://businesswith.se/system/dealjourneycrm/write-review/', bw_btn:'Skriv omdöme', prize_text:'<strong>Alla som bidrar är med i utlottningen.</strong> Vi lottar ut krediter och moduler i systemet bland alla som skickar in. Du kan bli överraskad. Tillsammans blir vi starka. 💜', btn_submit:'Skicka in omdöme', submit_note:'Vi behandlar din information med respekt och använder den endast för det syfte du har godkänt.', thanks_title:'Tusen tack!', thanks_body:'Vi har tagit emot ditt omdöme och uppskattar enormt att du tog dig tid. Vi återkommer till dig så snart vi har använt det.<br><br>Kom ihåg utlottningen av systemkrediter och moduler. Du hör av oss. 💜', tagline:'Tillsammans blir vi starka.', err_name:'Vänligen fyll i ditt namn.', err_review:'Vänligen skriv ett omdöme.', err_generic:'Något gick fel: ' },
+  da: { eyebrow:'Kundeanmeldelse', title:'Tak fordi du deler<br><em>din oplevelse</em>', desc:'Vi sætter enormt stor pris på, at du vil give os en udtalelse, som vi kan bruge på vores hjemmeside og i sociale medier. Udfyld formularen nedenfor, så tager vi det derfra. På forhånd mange tak.', section_about:'Om dig', section_review:'Din udtalelse', section_files:'Logo og billede', label_name:'Navn', placeholder_name:'Lars Jensen', label_role:'Rolle', label_role_hint:'/ titel', placeholder_role:'Direktør', label_website:'Virksomhedens hjemmeside', label_linkedin:'LinkedIn-profil', label_customer_type:'Er du ny eller eksisterende kunde?', btn_new:'Ny kunde', btn_existing:'Eksisterende kunde', label_why_dj:'Hvorfor valgte I DealJourney?', placeholder_why_dj:'Fortæl os, hvad der afgjorde valget. Hvad ledte I efter, og hvad overbeviste jer?', label_what_like:'Hvad kan du lide ved DealJourney?', placeholder_what_like:'Del gerne konkrete ting, du har oplevet. Hvad har gjort en forskel for dig?', label_company_desc:'Kort om din virksomhed', placeholder_company_desc:'Nogle linjer om, hvad virksomheden laver, hvem I er, og hvad I beskæftiger jer med.', optional:'— valgfrit', label_logo:'Upload virksomhedens logo', label_photo:'Billede af dig', drop_label:'Slip filen her, eller klik for at vælge', drop_sub_logo:'PNG, JPG eller SVG. Helst høj opløsning.', drop_sub_photo:'Gerne et profilbillede i god kvalitet', bw_title:'Giv os en anmeldelse på BusinessWith', bw_desc:'Det tager kun 2 minutter og betyder enormt meget for os.', bw_url:'https://businesswith.dk/system/dealjourneycrm/write-review/', bw_btn:'Skriv anmeldelse', prize_text:'<strong>Alle der bidrager er med i lodtrækningen.</strong> Vi trækker lod om kreditter og moduler i systemet blandt alle, der indsender. Du kan blive overrasket. Sammen bliver vi stærke. 💜', btn_submit:'Indsend udtalelse', submit_note:'Vi behandler dine oplysninger med respekt og bruger dem kun til det formål, du har godkendt.', thanks_title:'Mange tak!', thanks_body:'Vi har modtaget din udtalelse og sætter enormt stor pris på, at du tog dig tid. Vi vender tilbage til dig, så snart vi har brugt den.<br><br>Husk lodtrækningen af systemkreditter og moduler. Du hører fra os. 💜', tagline:'Sammen bliver vi stærke.', err_name:'Udfyld venligst dit navn.', err_review:'Skriv venligst en udtalelse.', err_generic:'Noget gik galt: ' },
+  en: { eyebrow:'Customer Testimonial', title:'Thank you for sharing<br><em>your experience</em>', desc:"We truly appreciate you taking the time to share a testimonial we can use on our website and social media. Fill in the form below and we'll take it from there. Thank you in advance.", section_about:'About you', section_review:'Your testimonial', section_files:'Logo and photo', label_name:'Name', placeholder_name:'Jane Smith', label_role:'Role', label_role_hint:'/ title', placeholder_role:'CEO', label_website:'Company website', label_linkedin:'LinkedIn profile', label_customer_type:'Are you a new or existing customer?', btn_new:'New customer', btn_existing:'Existing customer', label_why_dj:'Why did you choose DealJourney?', placeholder_why_dj:"Tell us what made the difference. What were you looking for, and what convinced you?", label_what_like:'What do you like about DealJourney?', placeholder_what_like:"Feel free to share specific things you've experienced. What has made a difference for you?", label_company_desc:'A few words about your company', placeholder_company_desc:'A few lines about what your company does, who you are, and what you work on.', optional:'— optional', label_logo:'Upload your company logo', label_photo:'A photo of you', drop_label:'Drop the file here, or click to choose', drop_sub_logo:'PNG, JPG or SVG. High resolution preferred.', drop_sub_photo:'A good quality profile photo works great', bw_title:'Leave us a review on BusinessWith', bw_desc:'It only takes 2 minutes and means the world to us.', bw_url:'https://businesswith.com/system/dealjourneycrm/write-review/', bw_btn:'Write a review', prize_text:"<strong>Everyone who contributes is entered into the draw.</strong> We're giving away credits and modules to lucky submitters. You might be surprised. Together we grow stronger. 💜", btn_submit:'Submit testimonial', submit_note:'We handle your information with respect and use it only for the purpose you have approved.', thanks_title:'Thank you so much!', thanks_body:"We've received your testimonial and truly appreciate you taking the time. We'll be in touch once we've put it to use.<br><br>Don't forget the draw for system credits and modules. We'll be in touch. 💜", tagline:'Together we grow stronger.', err_name:'Please enter your name.', err_review:'Please write a testimonial.', err_generic:'Something went wrong: ' }
+};
+let currentLang = 'no';
+function setLang(lang) {
+  currentLang = lang;
+  document.documentElement.lang = lang;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector('.lang-btn[onclick="setLang(\''+lang+'\')"]').classList.add('active');
+  const t = i18n[lang];
+  document.querySelectorAll('[data-i18n]').forEach(el => { const k = el.dataset.i18n; if (t[k] !== undefined) el.innerHTML = t[k]; });
+  document.querySelectorAll('[data-i18n-ph]').forEach(el => { const k = el.dataset.i18nPh; if (t[k] !== undefined) el.placeholder = t[k]; });
+  const titles = { no:'Del din erfaring', sv:'Dela din erfarenhet', da:'Del din oplevelse', en:'Share your experience' };
+  document.title = titles[lang] + ' — DealJourney'; const bwLink = document.getElementById('bwLink'); if(bwLink && t.bw_url) bwLink.href = t.bw_url;
+}
+function switchType(type) {
+  document.getElementById('btnNew').classList.toggle('active', type==='new');
+  document.getElementById('btnExisting').classList.toggle('active', type==='existing');
+  document.getElementById('panelNew').classList.toggle('visible', type==='new');
+  document.getElementById('panelExisting').classList.toggle('visible', type==='existing');
+}
+function handleFileSelect(input, prevId, nameId) {
+  if (input.files && input.files[0]) { document.getElementById(nameId).textContent = input.files[0].name; document.getElementById(prevId).classList.add('visible'); }
+}
+document.querySelectorAll('.drop-zone').forEach(zone => {
+  zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('dragover'); });
+  zone.addEventListener('dragleave', () => zone.classList.remove('dragover'));
+  zone.addEventListener('drop', e => { e.preventDefault(); zone.classList.remove('dragover'); const input = zone.querySelector('input[type="file"]'); if (e.dataTransfer.files.length) { const dt = new DataTransfer(); dt.items.add(e.dataTransfer.files[0]); input.files = dt.files; input.dispatchEvent(new Event('change')); } });
+});
+async function uploadFile(file, bucket) {
+  const ext = file.name.split('.').pop();
+  const filename = Date.now() + '-' + Math.random().toString(36).slice(2) + '.' + ext;
+  const res = await fetch(SUPABASE_URL + '/storage/v1/object/' + bucket + '/' + filename, { method:'POST', headers:{'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':file.type}, body:file });
+  if (!res.ok) return null;
+  return SUPABASE_URL + '/storage/v1/object/public/' + bucket + '/' + filename;
+}
+async function submitForm() {
+  const t = i18n[currentLang];
+  const navn = document.getElementById('navn').value.trim();
+  const isNew = document.getElementById('panelNew').classList.contains('visible');
+  const uttalelse = isNew ? document.getElementById('newQuestion').value.trim() : document.getElementById('existingQuestion').value.trim();
+  document.getElementById('errorMsg').classList.remove('visible');
+  if (!navn) { showError(t.err_name); document.getElementById('navn').focus(); return; }
+  if (!uttalelse) { showError(t.err_review); return; }
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true; btn.textContent = '...';
+  try {
+    let logo_url = null, bilde_url = null;
+    const logoFile = document.getElementById('logoFile').files[0];
+    const photoFile = document.getElementById('photoFile').files[0];
+    if (logoFile) logo_url = await uploadFile(logoFile, 'uttalelser-logoer');
+    if (photoFile) bilde_url = await uploadFile(photoFile, 'uttalelser-bilder');
+    const payload = { navn, rolle: document.getElementById('rolle').value.trim()||null, er_ny_kunde:isNew, uttalelse, bedrift_beskrivelse:document.getElementById('bedriftBeskrivelse').value.trim()||null, nettside:document.getElementById('nettside').value.trim()||null, linkedin:document.getElementById('linkedin').value.trim()||null, logo_url, bilde_url, status:'ny' };
+    const res = await fetch(SUPABASE_URL+'/rest/v1/uttalelser', { method:'POST', headers:{'Content-Type':'application/json','apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Prefer':'return=minimal'}, body:JSON.stringify(payload) });
+    if (!res.ok) { const err = await res.json(); throw new Error(err.message||'Error'); }
+    document.getElementById('formContent').style.transition = 'opacity 0.3s';
+    document.getElementById('formContent').style.opacity = '0';
+    setTimeout(() => { document.getElementById('formContent').style.display='none'; document.getElementById('thankYou').classList.add('visible'); window.scrollTo({top:0,behavior:'smooth'}); }, 300);
+  } catch(err) { showError(t.err_generic + err.message); btn.disabled=false; btn.textContent=t.btn_submit; }
+}
+function showError(msg) { const el = document.getElementById('errorMsg'); el.textContent=msg; el.classList.add('visible'); el.scrollIntoView({behavior:'smooth',block:'nearest'}); }
+setLang('no');
 </script>
 </body>
 </html>
