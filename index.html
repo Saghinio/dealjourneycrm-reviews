@@ -325,7 +325,7 @@ document.querySelectorAll('.drop-zone').forEach(zone => {
 async function uploadFile(file, bucket) {
   const ext = file.name.split('.').pop();
   const filename = Date.now() + '-' + Math.random().toString(36).slice(2) + '.' + ext;
-  const res = await fetch(SUPABASE_URL + '/storage/v1/object/' + bucket + '/' + filename, { method:'POST', headers:{'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':file.type}, body:file });
+  const res = await fetch(SUPABASE_URL + '/storage/v1/object/' + bucket + '/' + filename, { method:'POST', headers:{'Authorization':'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im54emt5ZXNuanZnY3Z3eW9rd2RtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc5MzMyMTUsImV4cCI6MjA5MzUwOTIxNX0.f0JuZWlBBnxIspB6t6rqzJ1BDUL5BwcojpkootzAe0M','Content-Type':file.type,'x-upsert':'true'}, body:file });
   if (!res.ok) return null;
   return SUPABASE_URL + '/storage/v1/object/public/' + bucket + '/' + filename;
 }
