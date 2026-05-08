@@ -425,8 +425,9 @@ if (r.bilde_url || r.logo_url) {
   if (r.logo_url) imgParts += '<img class="img-thumb-logo" src="' + r.logo_url + '" alt="Logo"> <a class="dl-btn" href="' + r.logo_url + '" download target="_blank">' + dlIcon + 'Last ned logo</a>';
   imagesHtml = '<div class="review-images">' + imgParts + '</div>';
 }
-const logoHtml = '';
-const companyHtmlconst companyHtml = r.bedrift_beskrivelse ? `<div class="review-company">${r.bedrift_beskrivelse}</div>` : '';
+const linksHtml = [r.nettside ? '<a class="review-link" href="' + r.nettside + '" target="_blank"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> Nettside</a>' : '', r.linkedin ? '<a class="review-link" href="' + r.linkedin + '" target="_blank"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg> LinkedIn</a>' : ''].filter(Boolean).join('');
+        const logoHtml = '';
+const companyHtml = r.bedrift_beskrivelse ? `<div class="review-company">${r.bedrift_beskrivelse}</div>` : '';
       const actionsHtml = r.status === 'ny' ? `
         <div class="status-actions">
           <button class="status-btn publish" onclick="updateStatus('${r.id}', 'publisert')">Publiser</button>
