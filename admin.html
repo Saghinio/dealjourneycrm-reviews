@@ -4,15 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Admin — Kundeuttalelser — DealJourney</title>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #0f0d14; --surface: #17131f; --surface2: #1e1829;
     --border: rgba(145,36,235,0.18); --purple-1: #9124EB; --purple-2: #C024E8; --purple-3: #C634F7;
-    --mint: #A6FDCF; --teal: #3FB896; --text: #f0ecf8; --text-mid: #9b90b5; --text-dim: #5a5070;
+    --mint: #A6FDCF; --teal: #3FB896; --text: #ffffff; --text-mid: #c4bdd8; --text-dim: #8b82a0;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { background: var(--bg); font-family: 'Roboto', sans-serif; color: var(--text); min-height: 100vh; }
+  body { background: var(--bg); font-family: 'Inter', sans-serif; color: var(--text); min-height: 100vh; }
 
   /* Login screen */
   .login-screen {
@@ -39,7 +39,7 @@
   .login-field label { display: block; font-size: 12px; font-weight: 500; color: var(--text-mid); margin-bottom: 8px; letter-spacing: 0.05em; text-transform: uppercase; }
   .login-field input {
     width: 100%; background: var(--surface2); border: 1px solid var(--border); border-radius: 10px;
-    padding: 13px 16px; font-family: 'Roboto', sans-serif; font-size: 14px; font-weight: 300; color: var(--text);
+    padding: 13px 16px; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 400; color: var(--text);
     outline: none; transition: border-color 0.2s;
   }
   .login-field input:focus { border-color: var(--purple-1); }
@@ -95,13 +95,13 @@
     display: flex; align-items: center; justify-content: center; font-size: 16px; color: white; font-weight: 500;
   }
   .review-avatar img { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; }
-  .review-name { font-size: 15px; font-weight: 500; margin-bottom: 3px; }
+  .review-name { font-size: 16px; font-weight: 600; margin-bottom: 3px; }
   .review-meta { font-size: 12px; color: var(--text-mid); font-weight: 300; }
   .review-badges { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
   .badge-new { font-size: 10px; font-weight: 600; padding: 3px 10px; border-radius: 20px; letter-spacing: 0.05em; text-transform: uppercase; background: rgba(63,184,150,0.15); color: var(--teal); border: 1px solid rgba(63,184,150,0.3); }
   .badge-existing { font-size: 10px; font-weight: 600; padding: 3px 10px; border-radius: 20px; letter-spacing: 0.05em; text-transform: uppercase; background: rgba(145,36,235,0.15); color: var(--purple-3); border: 1px solid rgba(145,36,235,0.3); }
 
-  .review-text { font-size: 14px; line-height: 1.75; color: var(--text); font-weight: 400; font-style: italic; margin-bottom: 20px; border-left: 2px solid var(--purple-1); padding-left: 16px; }
+  .review-text { font-size: 15px; line-height: 1.8; color: var(--text); font-weight: 400; font-style: normal; margin-bottom: 20px; border-left: 3px solid var(--purple-1); padding-left: 16px; }
 
   .review-footer { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
   .review-links { display: flex; gap: 12px; }
@@ -122,6 +122,12 @@
   .status-tag.ny { background: rgba(255,200,50,0.12); color: #ffc832; border: 1px solid rgba(255,200,50,0.25); }
   .status-tag.publisert { background: rgba(63,184,150,0.12); color: var(--teal); border: 1px solid rgba(63,184,150,0.25); }
   .status-tag.avvist { background: rgba(255,100,100,0.08); color: #ff7070; border: 1px solid rgba(255,100,100,0.2); }
+.dl-btn { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; padding: 4px 10px; border-radius: 6px; border: 1px solid rgba(145,36,235,0.3); background: rgba(145,36,235,0.08); color: var(--purple-3); text-decoration: none; cursor: pointer; transition: all 0.2s; font-family: 'Inter', sans-serif; }
+.dl-btn:hover { background: rgba(145,36,235,0.18); }
+.dl-btn svg { width: 11px; height: 11px; stroke: currentColor; stroke-width: 2; fill: none; }
+.review-images { display: flex; align-items: center; gap: 8px; margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.05); flex-wrap: wrap; }
+.img-thumb { width: 48px; height: 48px; border-radius: 8px; object-fit: cover; border: 1px solid var(--border); }
+.img-thumb-logo { height: 32px; max-width: 100px; object-fit: contain; border-radius: 6px; background: rgba(255,255,255,0.05); padding: 4px 8px; border: 1px solid var(--border); }
 
   @media (max-width: 600px) { .content { padding: 16px; } .review-card { padding: 20px; } .topbar { padding: 0 16px; } .filter-bar { padding: 16px; } }
 </style>
@@ -410,15 +416,17 @@
       const initials = r.navn ? r.navn.split(' ').map(n=>n[0]).join('').substring(0,2).toUpperCase() : '?';
       const dato = new Date(r.opprettet).toLocaleDateString('no-NO', { day: 'numeric', month: 'long', year: 'numeric' });
       const statusTag = `<span class="status-tag ${r.status}">${r.status}</span>`;
-      const avatarHtml = r.bilde_url
-        ? `<div class="review-avatar"><img src="${r.bilde_url}" alt="${r.navn}"></div>`
-        : `<div class="review-avatar">${initials}</div>`;
-      const logoHtml = r.logo_url ? `<img class="review-logo" src="${r.logo_url}" alt="logo">` : '';
-      const linksHtml = [
-        r.nettside ? `<a class="review-link" href="${r.nettside}" target="_blank"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>Nettside</a>` : '',
-        r.linkedin ? `<a class="review-link" href="${r.linkedin}" target="_blank"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>LinkedIn</a>` : ''
-      ].filter(Boolean).join('');
-      const companyHtml = r.bedrift_beskrivelse ? `<div class="review-company">${r.bedrift_beskrivelse}</div>` : '';
+      const avatarHtml = '<div class="review-avatar">' + initials + '</div>';
+let imagesHtml = '';
+if (r.bilde_url || r.logo_url) {
+  const dlIcon = '<svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>';
+  let imgParts = '';
+  if (r.bilde_url) imgParts += '<img class="img-thumb" src="' + r.bilde_url + '" alt="Personbilde"> <a class="dl-btn" href="' + r.bilde_url + '" download target="_blank">' + dlIcon + 'Last ned bilde</a>';
+  if (r.logo_url) imgParts += '<img class="img-thumb-logo" src="' + r.logo_url + '" alt="Logo"> <a class="dl-btn" href="' + r.logo_url + '" download target="_blank">' + dlIcon + 'Last ned logo</a>';
+  imagesHtml = '<div class="review-images">' + imgParts + '</div>';
+}
+const logoHtml = '';
+const companyHtmlconst companyHtml = r.bedrift_beskrivelse ? `<div class="review-company">${r.bedrift_beskrivelse}</div>` : '';
       const actionsHtml = r.status === 'ny' ? `
         <div class="status-actions">
           <button class="status-btn publish" onclick="updateStatus('${r.id}', 'publisert')">Publiser</button>
@@ -442,11 +450,12 @@
           </div>
           <div class="review-text">${r.uttalelse}</div>
           <div class="review-footer">
-            <div style="display:flex;align-items:center;gap:16px">${logoHtml}<div class="review-links">${linksHtml}</div></div>
-            <div class="review-date">${dato}</div>
-          </div>
-          ${companyHtml}
-        </div>`;
+            <div style="display:flex;align-items:center;gap:16px"><div class="review-links">${linksHtml}</div></div>
+<div class="review-date">${dato}</div>
+</div>
+${companyHtml}
+${imagesHtml}
+</div>`;
     });
   }
 
