@@ -97,7 +97,7 @@
   @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
   @media (max-width: 520px) { .card { padding: 28px 24px; } .header-title { font-size: 26px; } .two-col { grid-template-columns: 1fr; } .bw-card { flex-direction: column; } }
 </style>
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
 <body>
 <div class="page-wrap">
   <div class="header">
@@ -288,7 +288,7 @@
   <div class="footer-tagline" data-i18n="tagline"></div>
 </div>
 <script>
-emailjs.init('YOUR_PUBLIC_KEY');
+
   const SUPABASE_URL = 'https://nxzkyesnjvgcvwyokwdm.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_0LReF4E4CkYETFQGHyBoxg__Fv944jP';
 const i18n = {
@@ -349,11 +349,9 @@ async function submitForm() {
     const payload = { navn, rolle: document.getElementById('rolle').value.trim()||null, er_ny_kunde:isNew, uttalelse, bedrift_beskrivelse:document.getElementById('bedriftBeskrivelse').value.trim()||null, nettside:document.getElementById('nettside').value.trim()||null, linkedin:document.getElementById('linkedin').value.trim()||null, logo_url, bilde_url, status:'ny' };
     const res = await fetch(SUPABASE_URL+'/rest/v1/uttalelser', { method:'POST', headers:{'Content-Type':'application/json','apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Prefer':'return=minimal'}, body:JSON.stringify(payload) });
     if (!res.ok) { const err = await res.json(); throw new Error(err.message||'Error'); }
-    emailjs.send('YOUR_SERVICE_ID','YOUR_TEMPLATE_ID',{name:navn,review:uttalelse,role:document.getElementById('rolle').value.trim()||'',is_new_customer:isNew?'Ny kunde':'Eksisterende kunde'}).catch(()=>{});
     document.getElementById('formContent').style.opacity = '0';
     setTimeout(() => { document.getElementById('formContent').style.display='none'; document.getElementById('thankYou').classList.add('visible'); window.scrollTo({top:0,behavior:'smooth'}); }, 300);
   } catch(err) { showError(t.err_generic + err.message); btn.disabled=false; btn.textContent=t.btn_submit; }
-}
 function showError(msg) { const el = document.getElementById('errorMsg'); el.textContent=msg; el.classList.add('visible'); el.scrollIntoView({behavior:'smooth',block:'nearest'}); }
 setLang('no');
 </script>
