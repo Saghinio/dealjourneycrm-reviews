@@ -353,6 +353,7 @@ async function submitForm() {
     setTimeout(() => { document.getElementById('formContent').style.display='none'; document.getElementById('thankYou').classList.add('visible'); window.scrollTo({top:0,behavior:'smooth'}); }, 300);
   } catch(err) { showError(t.err_generic + err.message); btn.disabled=false; btn.textContent=t.btn_submit; }
 function showError(msg) { const el = document.getElementById('errorMsg'); el.textContent=msg; el.classList.add('visible'); el.scrollIntoView({behavior:'smooth',block:'nearest'}); }
+  }
 setLang('no');
 </script>
 </body>
